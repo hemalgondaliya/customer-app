@@ -25,7 +25,7 @@ export class AppComponent {
         {
             title: 'Customer',
             url: '/customer',
-            icon: 'person-add'
+            icon: 'user'
         }
     ];
 
