@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {EventService} from '../core/event.service';
 import {Router} from '@angular/router';
+import {DataService} from '../core/data.service';
+import {HttpClient} from '@angular/common/http';
+import {AlertService} from '../core/alert.service';
+import {AlertInfo} from '../modal/alert-info.modal';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 
-import { HttpClient, HttpParams, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { HttpParamsOptions } from '@angular/common/http/src/params';
 
 @Component({
     selector: 'login-page',
@@ -11,33 +14,46 @@ import { HttpParamsOptions } from '@angular/common/http/src/params';
     styleUrls: ['login.page.scss']
 })
 export class LoginComponent implements OnInit {
+    
+    loginForm: FormGroup;
     isLoggedIn = false;
-    constructor(private eventService: EventService, private router: Router, private http: HttpClient) {
+
+    constructor(private eventService: EventService, private router: Router,
+                private http: HttpClient, private dataService: DataService, private alertService: AlertService) {
     }
 
     ngOnInit() {
+        this.loginForm = new FormGroup({
+            'name': new FormControl(null),
+            'password': new FormControl(null)
+        });
     }
 
-    
-    logIn() {
-        
-        const httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/json'
-            })
+    onLogin() {
+        const alertMessage: AlertInfo = {
+            header: 'Login fail!',
+            message: 'Please enter a valid credentials',
+            buttons: ['OK']
         };
 
-        const loginData = {
-            "id": 0,
-            "name": "Hemal",
-            "password": "Hemal@123"
-          }
-        this.http.post("http://localhost:8080/user/login",loginData,httpOptions)
-        .subscribe((response: any) => {
-        console.log('First Http response:' + response);
-        });
-        this.isLoggedIn = true;
-        this.eventService.emit('loginSuccess', true);
-        this.router.navigateByUrl('home');
+        if (this.loginForm.value.name !== null && this.loginForm.value.password !== null) {
+            this.dataService.getLogin(this.loginForm.value)
+                .subscribe((response: any) => {
+                    console.log(response);
+                    if (response.statusCode === 200) {
+                        console.log('correct status...');
+                        this.isLoggedIn = true;
+                        this.eventService.emit('loginSuccess', true);
+                        this.router.navigateByUrl('home');
+                    } else {
+                        this.alertService.presentAlert(alertMessage);
+                    }
+                }, (error) => {
+                    this.alertService.presentAlert({header: 'Server', buttons: ['OK']});
+                });
+        } else {
+            this.alertService.presentAlert(alertMessage);
+            console.log('Please Enter credentials');
+        }
     }
 }

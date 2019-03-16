@@ -1,15 +1,19 @@
 <ion-content>
     <div class="login-container">
-        <ion-item>
-            <ion-textarea placeholder="Login Id"></ion-textarea>
-        </ion-item>
-        <ion-item>
-            <ion-textarea placeholder="Password"></ion-textarea>
-        </ion-item>
-
-        <ion-button color="primary" routerDirection="home" (click)="logIn()">Login</ion-button>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <ion-item>
+                <ion-input formControlName="name"
+                        placeholder="Login Id"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+            </ion-item>
+            <div text-center>
+                 <ion-button type="submit" color="primary" routerDirection="home">Login</ion-button>
+            </div>
+        </form>
     </div>
-</ion-content>
+</ion-content> 
 
 
 
