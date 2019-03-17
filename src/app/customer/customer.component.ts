@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import {EventService} from '../core/event.service';
 
 @Component({
     selector: 'login-page',
-    templateUrl: 'customer.html',
-    styleUrls: ['customer.scss']
+    templateUrl: 'customer.component.html',
+    styleUrls: ['customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
 
     customerForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private eventService: EventService) {
 
     }
 
@@ -19,11 +20,15 @@ export class CustomerComponent implements OnInit {
             'customername': new FormControl(null, [Validators.required]),
             'billno': new FormControl(null, [Validators.required]),
             'phonenumber': new FormControl(null, [Validators.required]),
-            'item': new FormControl(null, [Validators.required])
+            'item': new FormControl(null, [Validators.required]),
+            'address': new FormControl(null, [Validators.required]),
+            'price': new FormControl(null, [Validators.required])
         });
     }
 
     onSubmit() {
+        this.eventService.emit('customer.inserted',this.customerForm.value);
+        console.log(this.customerForm.value);
     }
 
 }

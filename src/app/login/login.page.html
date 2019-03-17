@@ -1,19 +1,19 @@
 <ion-content>
     <div class="login-container">
-
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <ion-item>
                 <ion-input formControlName="name"
                         placeholder="Login Id"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input formControlName="password" placeholder="Password"></ion-input>
+                <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
             </ion-item>
-            <ion-button type="submit" color="primary" routerDirection="home">Login</ion-button>
+            <div text-center>
+                 <ion-button type="submit" color="primary" routerDirection="home">Login</ion-button>
+            </div>
         </form>
-
     </div>
-</ion-content>
+</ion-content> 
 
 
 

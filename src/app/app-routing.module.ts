@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {CustomerComponent} from './customer/customer.component';
+import {ListPage} from './list/list.page';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
+    component: ListPage,
+    pathMatch: 'full'
   },
   {
     path: 'customer',

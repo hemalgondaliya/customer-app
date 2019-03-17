@@ -14,6 +14,7 @@ import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
     styleUrls: ['login.page.scss']
 })
 export class LoginComponent implements OnInit {
+    
     loginForm: FormGroup;
     isLoggedIn = false;
 

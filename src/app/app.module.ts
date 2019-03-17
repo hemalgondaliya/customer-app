@@ -14,12 +14,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import {LoginComponent} from './login/login.component';
 import {CustomerComponent} from './customer/customer.component';
+import {ListPage} from './list/list.page';
 import {EventService} from './core/event.service';
 import {DataService} from './core/data.service';
 import {AlertService} from './core/alert.service';
 
 @NgModule({
-    declarations: [AppComponent, LoginComponent, CustomerComponent],
+    declarations: [AppComponent, LoginComponent, CustomerComponent, ListPage],
   entryComponents: [],
   imports: [
     BrowserModule,
