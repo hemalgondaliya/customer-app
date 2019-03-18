@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../modal/customer';
 import { EventService } from '../core/event.service';
+import {ListService} from './list.service';
+import {ModalController} from '@ionic/angular';
+import {CustomerSingleComponent} from './customer-single/customer-single.component';
 
 @Component({
   selector: 'app-list',
@@ -9,36 +12,30 @@ import { EventService } from '../core/event.service';
 })
 export class ListPage implements OnInit {
   private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public customers: Array<Customer> = [];
 
+  public customers: Array<Customer>;
   public items: Array<{ title: string; note: string; icon: string }> = [];
 
-  constructor(private eventService: EventService) {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  constructor(private eventService: EventService, private listService: ListService, public modalController: ModalController) {
+    this.customers = this.listService.getCustomerList();
   }
 
   ngOnInit() {
     this.eventService.on('customer.inserted').subscribe((customer: Customer) => {
       this.customers.push(customer);
     });
+  }
+
+  async presentModal(cust: Customer) {
+    const modal = await this.modalController.create({
+      component: CustomerSingleComponent,
+      componentProps: {customer: cust}
+    });
+    return await modal.present();
+  }
+
+  onCustSelect(cust: Customer) {
+    this.presentModal(cust);
   }
   // add back when alpha.4 is out
   // navigate(item) {

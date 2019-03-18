@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {EventService} from '../core/event.service';
+import {ListService} from '../list/list.service';
 
 @Component({
-    selector: 'login-page',
+    selector: 'customer-page',
     templateUrl: 'customer.component.html',
     styleUrls: ['customer.component.scss']
 })
@@ -11,7 +12,7 @@ export class CustomerComponent implements OnInit {
 
     customerForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private eventService: EventService) {
+    constructor(private formBuilder: FormBuilder, private eventService: EventService, private listService: ListService) {
 
     }
 
@@ -27,7 +28,7 @@ export class CustomerComponent implements OnInit {
     }
 
     onSubmit() {
-        this.eventService.emit('customer.inserted',this.customerForm.value);
+        this.listService.addCustomer(this.customerForm.value);
         console.log(this.customerForm.value);
     }
 

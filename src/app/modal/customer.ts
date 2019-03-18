@@ -1,9 +1,9 @@
 
 export class Customer {
-    name: string;
+    customername: string;
     billno: number;
     item: string;
-    phone: number
+    phonenumber: number
     address: string;
     price: number;
 }

@@ -1,0 +1,52 @@
+<ion-header translucent="" class="header header-translucent hydrated">
+    <ion-toolbar class="hydrated">
+        <ion-buttons slot="end" class="hydrated">
+            <ion-button (click)="dismissModal()">Close</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- {{customer.customername}},{{customer.billno}},{{customer.address}},{{customer.phonenumber}} -->
+    <ion-grid class="info-container">
+  
+        <ion-row>
+            <ion-col>
+              Name
+            </ion-col>
+            <ion-col>
+                {{customer.customername}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              Bill-No
+            </ion-col>
+            <ion-col>
+                {{customer.billno}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              Address
+            </ion-col>
+            <ion-col> 
+                {{customer.address}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              Mobile
+            </ion-col>
+            <ion-col>
+                {{customer.phonenumber}}
+            </ion-col>
+          </ion-row>
+          
+        </ion-grid>
+</ion-content>
+
+
