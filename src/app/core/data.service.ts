@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EventService} from './event.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
+import {Customer} from '../modal/customer';
 
 
 @Injectable()
@@ -19,6 +20,10 @@ export class DataService {
 
     public getLogin(user: any): Observable<Object> {
         return this.http.post(this.requestApi + '/user/login', user, this.httpOptions);
+    }
+
+    public saveCustomer(cust: any): Observable<Object> {
+        return this.http.post(this.requestApi + '/user/customer/save', cust, this.httpOptions);
     }
 
 }
