@@ -8,22 +8,41 @@ import {Customer} from '../modal/customer';
 
 @Injectable()
 export class DataService {
+
+    deliveryPeoples: Array<String>;
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
         })
     };
-    requestApi = 'http://localhost:8080';
+    requestApi = 'http://144.217.7.73:8080';
+
+    // requestApi = 'http://localhost:8080';
 
     constructor(private eventService: EventService, private router: Router, private http: HttpClient) {
+        this.initDeliveryPeople();
     }
 
+    initDeliveryPeople() {
+        this.http.post(this.requestApi + '/user/deliveryPerson/getAll', null, this.httpOptions)
+            .subscribe((response: Array<String>) => {
+                this.deliveryPeoples = response;
+            });
+    }
     public getLogin(user: any): Observable<Object> {
         return this.http.post(this.requestApi + '/user/login', user, this.httpOptions);
     }
 
     public saveCustomer(cust: any): Observable<Object> {
         return this.http.post(this.requestApi + '/user/customer/save', cust, this.httpOptions);
+    }
+
+    public getCustomerList(): Observable<Object> {
+        return this.http.post(this.requestApi + '/user/customer/list', null, this.httpOptions);
+    }
+
+    public getDeliverPeople(): Array<String> {
+        return this.deliveryPeoples;
     }
 
 }

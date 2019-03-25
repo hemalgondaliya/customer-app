@@ -1,9 +1,13 @@
 
 export class Customer {
-    customername: string;
-    billno: number;
+    firstName: string;
+    lastName: string;
+    referenceName: string;
+    billNumber: number;
+    date: string;
     item: string;
-    phonenumber: number
+    phoneNumber: number
     address: string;
     price: number;
+    deliveryPerson: string;
 }

@@ -14,9 +14,4 @@ export class ListService {
         return this.tempCustomerList;
     }
 
-    public getList(): boolean {
-        return true;
-    }
-
-
 }

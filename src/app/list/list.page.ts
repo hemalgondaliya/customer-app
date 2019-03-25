@@ -4,6 +4,8 @@ import { EventService } from '../core/event.service';
 import {ListService} from './list.service';
 import {ModalController} from '@ionic/angular';
 import {CustomerSingleComponent} from './customer-single/customer-single.component';
+import {DataService} from '../core/data.service';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-list',
@@ -14,10 +16,14 @@ export class ListPage implements OnInit {
   private selectedItem: any;
 
   public customers: Array<Customer>;
-  public items: Array<{ title: string; note: string; icon: string }> = [];
 
-  constructor(private eventService: EventService, private listService: ListService, public modalController: ModalController) {
-    this.customers = this.listService.getCustomerList();
+  constructor(private eventService: EventService, private listService: ListService,
+              public modalController: ModalController, private dataService: DataService) {
+    this.dataService.getCustomerList().subscribe((response: Array<Customer>) => {
+      this.customers = _.unionBy(this.listService.getCustomerList(), response, 'billNumber');
+    }, (error: any) => {
+      this.customers = this.listService.getCustomerList();
+    });
   }
 
   ngOnInit() {

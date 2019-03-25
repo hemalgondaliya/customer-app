@@ -6,6 +6,18 @@ import {AlertInfo} from '../modal/alert-info.modal';
 import {AlertService} from '../core/alert.service';
 import {DataService} from '../core/data.service';
 
+const successAlert: AlertInfo = {
+    header: 'Customer is saved to Database!',
+    message: 'Please check the list',
+    buttons: ['OK']
+};
+
+const errorAlert: AlertInfo = {
+    header: 'Erro while savind data!',
+    message: '',
+    buttons: ['OK']
+};
+
 @Component({
     selector: 'customer-page',
     templateUrl: 'customer.component.html',
@@ -15,10 +27,11 @@ export class CustomerComponent implements OnInit {
 
     customerForm: FormGroup;
 
-    onCancle: Function;
+    deliveryPeoples: Array<String>;
 
     constructor(private formBuilder: FormBuilder, private eventService: EventService,
                 private listService: ListService, private alertService: AlertService, private dataService: DataService) {
+        this.deliveryPeoples = this.dataService.getDeliverPeople();
     }
 
     ngOnInit() {
@@ -31,28 +44,21 @@ export class CustomerComponent implements OnInit {
             'item': new FormControl(null, [Validators.required]),
             'phoneNumber': new FormControl(null, [Validators.required]),
             'address': new FormControl(null, [Validators.required]),
-            'price': new FormControl(null, [Validators.required])
+            'price': new FormControl(null, [Validators.required]),
+            'deliveryPerson': new FormControl(null, [Validators.required])
         });
     }
 
     onSubmit() {
-        // this.alertService.presentAlertConfirm('', '', this.onCancel);
-
-        const alertMessage: AlertInfo = {
-            header: 'Customer is added!',
-            message: 'Please check the list',
-            buttons: ['OK']
-        };
         this.dataService.saveCustomer(this.customerForm.value).subscribe((response: any) => {
-            console.log(response);
+            this.alertService.presentAlert(successAlert);
+            this.customerForm.reset();
         }, (error: any) => {
-            console.log('customer save error: ');
+            errorAlert.message = error.message;
+            this.alertService.presentAlert(errorAlert);
         });
         this.listService.addCustomer(this.customerForm.value);
         console.log(this.customerForm.value);
-
-        this.alertService.presentAlert(alertMessage);
-        this.customerForm.reset();
     }
 
 

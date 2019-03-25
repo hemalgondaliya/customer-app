@@ -20,6 +20,7 @@ import {EventService} from './core/event.service';
 import {DataService} from './core/data.service';
 import {AlertService} from './core/alert.service';
 import {ListService} from './list/list.service';
+import {CustomerService} from './customer/customer.service';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent, CustomerComponent, ListPage, CustomerSingleComponent],
@@ -38,6 +39,7 @@ import {ListService} from './list/list.service';
       DataService,
       AlertService,
     ListService,
+    CustomerService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

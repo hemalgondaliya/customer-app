@@ -36,24 +36,27 @@ export class LoginComponent implements OnInit {
             buttons: ['OK']
         };
 
-        if (this.loginForm.value.name !== null && this.loginForm.value.password !== null) {
-            this.dataService.getLogin(this.loginForm.value)
-                .subscribe((response: any) => {
-                    console.log(response);
-                    if (response.statusCode === 200) {
-                        console.log('correct status...');
-                        this.isLoggedIn = true;
-                        this.eventService.emit('loginSuccess', true);
-                        this.router.navigateByUrl('home');
-                    } else {
-                        this.alertService.presentAlert(alertMessage);
-                    }
-                }, (error) => {
-                    this.alertService.presentAlert({header: 'Server', buttons: ['OK']});
-                });
-        } else {
-            this.alertService.presentAlert(alertMessage);
-            console.log('Please Enter credentials');
-        }
+        this.isLoggedIn = true;
+        this.eventService.emit('loginSuccess', true);
+        this.router.navigateByUrl('home');
+        // if (this.loginForm.value.name !== null && this.loginForm.value.password !== null) {
+        //     this.dataService.getLogin(this.loginForm.value)
+        //         .subscribe((response: any) => {
+        //             console.log(response);
+        //             if (response.statusCode === 200) {
+        //                 console.log('correct status...');
+        //                 this.isLoggedIn = true;
+        //                 this.eventService.emit('loginSuccess', true);
+        //                 this.router.navigateByUrl('home');
+        //             } else {
+        //                 this.alertService.presentAlert(alertMessage);
+        //             }
+        //         }, (error) => {
+        //             this.alertService.presentAlert({header: 'Server', buttons: ['OK']});
+        //         });
+        // } else {
+        //     this.alertService.presentAlert(alertMessage);
+        //     console.log('Please Enter credentials');
+        // }
     }
 }
