@@ -4,6 +4,7 @@ import {EventService} from './event.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Customer} from '../modal/customer';
+import {map} from 'rxjs/operators';
 
 
 @Injectable()
@@ -29,12 +30,13 @@ export class DataService {
                 this.deliveryPeoples = response;
             });
     }
+
     public getLogin(user: any): Observable<Object> {
-        return this.http.post(this.requestApi + '/user/login', user, this.httpOptions);
+        return this.http.post(this.requestApi + '/api/auth/signin', user, this.httpOptions);
     }
 
     public saveCustomer(cust: any): Observable<Object> {
-        return this.http.post(this.requestApi + '/user/customer/save', cust, this.httpOptions);
+        return this.http.post(this.requestApi + '/user/customer/save', cust, this.httpOptions).pipe(map(this.responseHandler));
     }
 
     public getCustomerList(): Observable<Object> {
@@ -43,6 +45,12 @@ export class DataService {
 
     public getDeliverPeople(): Array<String> {
         return this.deliveryPeoples;
+    }
+
+    private responseHandler(response: any) {
+        if (response.statusCode === 200) {
+            return response;
+        }
     }
 
 }

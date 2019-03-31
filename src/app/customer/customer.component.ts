@@ -57,7 +57,6 @@ export class CustomerComponent implements OnInit {
             errorAlert.message = error.message;
             this.alertService.presentAlert(errorAlert);
         });
-        this.listService.addCustomer(this.customerForm.value);
         console.log(this.customerForm.value);
     }
 
