@@ -6,7 +6,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,8 @@ import {DataService} from './core/data.service';
 import {AlertService} from './core/alert.service';
 import {ListService} from './list/list.service';
 import {CustomerService} from './customer/customer.service';
+import {AuthService} from './core/auth.service';
+import {TokenInterceptor} from './core/interceptors/token.interceptor';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent, CustomerComponent, ListPage, CustomerSingleComponent],
@@ -36,10 +38,15 @@ import {CustomerService} from './customer/customer.service';
     StatusBar,
     SplashScreen,
     EventService,
-      DataService,
+      DataService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
       AlertService,
     ListService,
     CustomerService,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

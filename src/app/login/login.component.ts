@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {AlertService} from '../core/alert.service';
 import {AlertInfo} from '../modal/alert-info.modal';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {AuthService} from '../core/auth.service';
 
 
 @Component({
@@ -14,12 +15,13 @@ import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
     styleUrls: ['login.page.scss']
 })
 export class LoginComponent implements OnInit {
-    
+
     loginForm: FormGroup;
     isLoggedIn = false;
 
     constructor(private eventService: EventService, private router: Router,
-                private http: HttpClient, private dataService: DataService, private alertService: AlertService) {
+                private http: HttpClient, private dataService: DataService,
+                private alertService: AlertService, private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -44,16 +46,13 @@ export class LoginComponent implements OnInit {
 
         ////////////////////////////////////////////////////////////
 
-
         if (this.loginForm.value.name !== null && this.loginForm.value.password !== null) {
             this.dataService.getLogin(this.loginForm.value)
                 .subscribe((response: any) => {
                     console.log(response);
                     if (response.statusCode === 200) {
                         console.log('correct status...');
-                        this.isLoggedIn = true;
-                        this.eventService.emit('loginSuccess', true);
-                        this.router.navigateByUrl('home');
+                        this.handleLoginSuccess(response);
                     } else {
                         this.alertService.presentAlert(alertMessage);
                     }
@@ -64,5 +63,11 @@ export class LoginComponent implements OnInit {
             this.alertService.presentAlert(alertMessage);
             console.log('Please Enter credentials');
         }
+    }
+
+    handleLoginSuccess(response: any) {
+        this.isLoggedIn = true;
+        this.eventService.emit('loginSuccess', true);
+        this.router.navigateByUrl('home');
     }
 }
