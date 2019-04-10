@@ -1,0 +1,31 @@
+<ion-header translucent="" class="header header-translucent hydrated">
+    <ion-toolbar class="hydrated">
+        <ion-buttons slot="end" class="hydrated">
+            <ion-button (click)="onCancel()">Cancel</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <form [formGroup]="productForm">
+                <ion-select placeholder="Select Model" formControlName="productModel" multiple="true">
+                    <ion-item *ngFor="let model of productModelList">
+                        <ion-select-option value="{{model}}">{{model}}</ion-select-option>
+                    </ion-item>
+                </ion-select>
+            </form>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngFor="let model of productForm.value.productModel">
+        <ion-card-content>
+            <ion-input type="number" [(ngModel)]="selectedProduct[model]">Price for {{model}}:</ion-input>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-button (click)="onSave()">Save</ion-button>
+
+</ion-content>
+

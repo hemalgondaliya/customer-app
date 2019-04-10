@@ -28,7 +28,8 @@ export class CustomerSingleComponent implements OnInit {
             'item': 'Item',
             'phoneNumber': 'Mobile',
             'address': 'Address',
-            'price': 'Price'
+            'email': 'email',
+            'deliveryPerson': 'Delivery'
         };
     }
 

@@ -18,7 +18,7 @@ export class ListPage implements OnInit {
   public customers: Array<Customer>;
 
   constructor(private eventService: EventService, private listService: ListService,
-              public modalController: ModalController, private dataService: DataService) {
+              private modalController: ModalController, private dataService: DataService) {
     this.dataService.getCustomerList().subscribe((response: Array<Customer>) => {
       this.customers = _.unionBy(this.listService.getCustomerList(), response, 'billNumber');
     }, (error: any) => {
@@ -43,8 +43,4 @@ export class ListPage implements OnInit {
   onCustSelect(cust: Customer) {
     this.presentModal(cust);
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
 }

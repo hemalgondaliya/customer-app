@@ -40,27 +40,29 @@
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating" color="primary">Bill No.</ion-label>
-                    <ion-input type="text" formControlName="billNumber"></ion-input>
+                    <ion-input inputmode="numeric" type="number" formControlName="billNumber"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating" color="primary">Date</ion-label>
-                    <ion-datetime formControlName="date" display-format="MMM DD, YYYY"></ion-datetime>
+                    <ion-datetime [min]="minDate" [max]=maxDate formControlName="date" display-format="MMM DD, YYYY"></ion-datetime>
                 </ion-item>
+                <div *ngFor="let model of selectedProduct | keyvalue">
+                    {{model.key}}:{{model.value}}
+                </div>
                 <ion-item>
-                    <ion-label position="floating" color="primary">Item</ion-label>
-                    <ion-input type="text" formControlName="item"></ion-input>
+                <ion-button (click)="openSelectItemModal()">Select Product</ion-button>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating" color="primary">Phone Number</ion-label>
-                    <ion-input type="text" formControlName="phoneNumber"></ion-input>
+                    <ion-input inputmode="numeric" type="number" formControlName="phoneNumber"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating" color="primary">Address</ion-label>
                     <ion-input type="text" formControlName="address"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label position="floating" color="primary">Price</ion-label>
-                    <ion-input type="text" formControlName="price"></ion-input>
+                    <ion-label position="floating" color="primary">Email</ion-label>
+                    <ion-input inputmode="email" type="email" formControlName="email"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating" color="primary">Delivery Person</ion-label>

@@ -7,7 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,16 +23,24 @@ import {ListService} from './list/list.service';
 import {CustomerService} from './customer/customer.service';
 import {AuthService} from './core/auth.service';
 import {TokenInterceptor} from './core/interceptors/token.interceptor';
+import {ProductComponent} from './customer/product/product.component';
 
 @NgModule({
-    declarations: [AppComponent, LoginComponent, CustomerComponent, ListPage, CustomerSingleComponent],
-  entryComponents: [CustomerSingleComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CustomerComponent,
+    ListPage,
+    CustomerSingleComponent,
+    ProductComponent],
+  entryComponents: [CustomerSingleComponent, ProductComponent],
   imports: [
     BrowserModule,
       HttpClientModule,
     IonicModule.forRoot(),
       AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     StatusBar,
