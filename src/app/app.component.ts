@@ -26,6 +26,16 @@ export class AppComponent {
             title: 'Customer',
             url: '/customer',
             icon: 'person-add'
+        },
+        {
+            title: 'Payment',
+            url: '/payment',
+            icon: 'card'
+        },
+        {
+            title: 'Edit model',
+            url: '/editmodel',
+            icon: 'create'
         }
     ];
 

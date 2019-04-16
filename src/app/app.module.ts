@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouteReuseStrategy} from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
 
 import {LoginComponent} from './login/login.component';
 import {CustomerComponent} from './customer/customer.component';
@@ -22,41 +22,48 @@ import {AlertService} from './core/alert.service';
 import {ListService} from './list/list.service';
 import {CustomerService} from './customer/customer.service';
 import {AuthService} from './core/auth.service';
+import {ValidationService} from './core/validation.service';
 import {TokenInterceptor} from './core/interceptors/token.interceptor';
 import {ProductComponent} from './customer/product/product.component';
+import {PaymentComponent} from './payment/payment.component';
+import {EditmodelComponent} from './editmodel/editmodel.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    CustomerComponent,
-    ListPage,
-    CustomerSingleComponent,
-    ProductComponent],
-  entryComponents: [CustomerSingleComponent, ProductComponent],
-  imports: [
-    BrowserModule,
-      HttpClientModule,
-    IonicModule.forRoot(),
-      AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    EventService,
-      DataService, {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
-      AlertService,
-    ListService,
-    CustomerService,
-    AuthService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        CustomerComponent,
+        ListPage,
+        CustomerSingleComponent,
+        ProductComponent,
+        PaymentComponent,
+        EditmodelComponent],
+    entryComponents: [CustomerSingleComponent, ProductComponent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        EventService,
+        DataService, {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        },
+        AlertService,
+        ListService,
+        CustomerService,
+        AuthService,
+        ValidationService,
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

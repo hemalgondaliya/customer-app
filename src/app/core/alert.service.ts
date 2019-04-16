@@ -20,21 +20,21 @@ export class AlertService {
         await alert.present();
     }
 
-    async presentAlertConfirm(header: string, message: string, onCalcel: Function ) {
+    async presentAlertConfirm(message: string, okFunc: Function) {
         const alert = await this.alertController.create({
             header: 'Confirm!',
-            message: 'Message <strong>text</strong>!!!',
+            message: message,
             buttons: [
                 {
                     text: 'Cancel',
                     role: 'cancel',
                     cssClass: 'secondary',
-                    handler: onCalcel()
+                    handler: () => {
+                        console.log('Confirm Cancel: blah');
+                    }
                 }, {
                     text: 'Okay',
-                    handler: () => {
-                        console.log('Confirm Okay');
-                    }
+                    handler: () => okFunc()
                 }
             ]
         });

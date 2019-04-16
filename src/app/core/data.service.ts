@@ -1,24 +1,20 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {EventService} from './event.service';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {AuthService} from './auth.service';
+import {Model} from '../modal/model';
 
 
 @Injectable()
 export class DataService {
 
     deliveryPersonList: Array<String>;
-    productModelList: Array<String>;
+    productModelList: Array<any>;
     productBrandList: Array<String>;
 
-    httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-        })
-    };
     // requestApi = 'http://144.217.7.73:8080';
 
     requestApi = 'http://localhost:8080';
@@ -32,15 +28,16 @@ export class DataService {
     }
 
     initDeliveryPeople() {
-        this.http.post(this.requestApi + '/user/deliveryPerson/getAll', null, this.httpOptions)
+        this.postApi('/user/deliveryPerson/getAll', null)
             .subscribe((response: Array<String>) => {
                 this.deliveryPersonList = response;
             });
     }
 
     initProductModels() {
-        // TODO: Get all model number from http request
-        this.productModelList = ['BX-65SRN', 'BX-65SRN1', 'BX-65SRN2', 'BX-65SRN3', 'BX-65SRN4', 'BX-65SRN5'];
+        this.postApi('/user/model/all', '').subscribe((response: Array<any>) => {
+            this.productModelList = response;
+        });
     }
 
     initProductBrand() {
@@ -57,7 +54,7 @@ export class DataService {
     }
 
     public getCustomerList(): Observable<Object> {
-        return this.http.post(this.requestApi + '/user/customer/list', null, this.httpOptions);
+        return this.postApi('/user/customer/list', null);
     }
 
     public getDeliverPeople(): Array<String> {
@@ -72,9 +69,17 @@ export class DataService {
         return this.productBrandList;
     }
 
+    public addNewModel(model: Model) {
+        return this.postApi('/user/model/add', model);
+    }
+
+    public deprecateModel(model: Model) {
+        return this.postApi('/user/model/deprecate', model);
+    }
+
     refreshToken(token: string) {
-        this.authService.setAuthToken(token);
-        this.eventService.emit('token.refresh', token);
+            this.authService.setAuthToken(token);
+            this.eventService.emit('token.refresh', token);
     }
 
     getApi(url: string, params?: HttpParams, responseType?: any) {

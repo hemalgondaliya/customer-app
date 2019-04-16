@@ -7,8 +7,8 @@ import {AlertService} from '../core/alert.service';
 import {DataService} from '../core/data.service';
 import {ModalController} from '@ionic/angular';
 import {ProductComponent} from './product/product.component';
-import {Const} from '../core/const/Const';
-import _ from 'lodash';
+import {Product} from '../modal/product';
+import {ValidationService} from '../core/validation.service';
 
 const successAlert: AlertInfo = {
     header: 'Customer is saved to Database!',
@@ -39,10 +39,9 @@ export class CustomerComponent implements OnInit {
     customerForm: FormGroup;
 
     deliveryPeoples: Array<String>;
-    productModelList: Array<String>;
     productBrandList: Array<String>;
 
-    selectedProduct: any;
+    selectedProducts: Product[];
 
     // ** Validation attributes ** //
     emailPattern: string;
@@ -55,11 +54,11 @@ export class CustomerComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder, private eventService: EventService,
                 private listService: ListService, private alertService: AlertService,
-                private dataService: DataService, private modalController: ModalController) {
+                private dataService: DataService, private modalController: ModalController,
+                private validationService: ValidationService) {
         this.deliveryPeoples = this.dataService.getDeliverPeople();
-        this.productModelList = this.dataService.getProductModelList();
         this.productBrandList = this.dataService.getProductBrandList();
-        this.selectedProduct = {};
+        this.selectedProducts = [];
         this.emailPattern = '[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})';
         this.namePattern = '[A-Za-z]{2,32}';
         this.billPattern = '[1-9][0-9]{0,3}';
@@ -76,7 +75,7 @@ export class CustomerComponent implements OnInit {
             'referenceName': new FormControl(null, [Validators.pattern(this.namePattern)]),
             'billNumber': new FormControl(null, [Validators.required, Validators.pattern(this.billPattern)]),
             'date': new FormControl(null, [Validators.required]),
-            'productModel': new FormControl(null, []),
+            'selectedProducts': new FormControl(null, []),
             'phoneNumber': new FormControl(null, [Validators.required, Validators.pattern(this.phonePattern)]),
             'address': new FormControl(null, [Validators.required]),
             'email': new FormControl(null, [Validators.pattern(this.emailPattern)]),
@@ -86,7 +85,7 @@ export class CustomerComponent implements OnInit {
 
     onSubmit() {
         if (this.performValidation()) {
-            this.customerForm.value.productModel = this.selectedProduct;
+            this.customerForm.value.selectedProducts = this.selectedProducts;
             this.dataService.saveCustomer(this.customerForm.value).subscribe((response: any) => {
                 this.alertService.presentAlert(successAlert);
                 this.customerForm.reset();
@@ -99,24 +98,23 @@ export class CustomerComponent implements OnInit {
     }
 
     performValidation() {
-        let validation = true;
-        _.forEach(_.keysIn(this.customerForm.value), (key: string) => {
-            if (!this.customerForm.get(key).valid && validation) {
-                validationAlert.message = 'Please provide valid ' + Const.CUSTOMER_PROPERTY_MAP[key];
-                this.alertService.presentAlert(validationAlert);
-                validation = false;
-            }
-        });
+        let validation = this.validationService
+            .performValidation(this.customerForm, 'CUSTOMER_PROPERTY_MAP');
+        if (this.selectedProducts.length <= 0 && validation) {
+            validationAlert.message = 'Please select product';
+            this.alertService.presentAlert(validationAlert);
+            validation = false;
+        }
         return validation;
     }
 
     async presentModal() {
         const modal = await this.modalController.create({
             component: ProductComponent,
-            componentProps: {customerForm: this.customerForm}
+            componentProps: {selectedProducts: this.selectedProducts}
         });
         modal.onDidDismiss().then(function (data) {
-            this.selectedProduct = data.data.selectedProduct;
+            this.selectedProducts = data.data.selectedProducts;
         }.bind(this));
         return await modal.present();
     }
