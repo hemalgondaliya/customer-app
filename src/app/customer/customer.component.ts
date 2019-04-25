@@ -39,7 +39,6 @@ export class CustomerComponent implements OnInit {
     customerForm: FormGroup;
 
     deliveryPeoples: Array<String>;
-    productBrandList: Array<String>;
 
     selectedProducts: Product[];
 
@@ -57,7 +56,6 @@ export class CustomerComponent implements OnInit {
                 private dataService: DataService, private modalController: ModalController,
                 private validationService: ValidationService) {
         this.deliveryPeoples = this.dataService.getDeliverPeople();
-        this.productBrandList = this.dataService.getProductBrandList();
         this.selectedProducts = [];
         this.emailPattern = '[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})';
         this.namePattern = '[A-Za-z]{2,32}';

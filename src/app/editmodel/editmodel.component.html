@@ -13,44 +13,32 @@
     <form [formGroup]="editModelForm">
         <ion-card>
             <ion-card-content>
-                <ion-select formControlName="brand" placeholder="Select Brand">
-                    <ion-item *ngFor="let brand of brandList">
-                        <ion-select-option value="{{brand}}">{{brand}}</ion-select-option>
-                    </ion-item>
-                </ion-select>
-            </ion-card-content>
-        </ion-card>
 
-        <ion-card *ngIf="editModelForm.get('brand').valid">
-            <ion-card-content>
-                <ion-select (ionChange)="onEditOptionChange();" formControlName="editOption"
-                            placeholder="Select operation">
+                <ion-select formControlName="brand" placeholder="Select Brand">
+                    <ion-select-option *ngFor="let brand of brandList" value="{{brand}}">{{brand}}</ion-select-option>
+                </ion-select>
+
+                <ion-select *ngIf="editModelForm.get('brand').valid" (ionChange)="onEditOptionChange();" formControlName="editOption"
+                        placeholder="Select operation">
                     <ion-select-option value="remove">Remove Model</ion-select-option>
                     <ion-select-option value="create">Create Model</ion-select-option>
                 </ion-select>
-            </ion-card-content>
-        </ion-card>
 
-        <ion-card *ngIf="editModelForm.get('editOption').value === 'remove'">
-            <ion-card-content>
-                <ion-select formControlName="model" placeholder="Select Model">
+                <ion-select *ngIf="editModelForm.get('editOption').value === 'remove'" formControlName="model" placeholder="Select Model">
                     <ion-item *ngFor="let model of productModelList[editModelForm.get('brand').value]">
                         <ion-select-option value="{{model.name}}">{{model.name}}</ion-select-option>
                     </ion-item>
                 </ion-select>
-            </ion-card-content>
-        </ion-card>
 
-        <ion-card *ngIf="editModelForm.get('editOption').value === 'create'">
-            <ion-card-content>
-                <ion-item>
+                <ion-item *ngIf="editModelForm.get('editOption').value === 'create'">
                     <ion-input type="text" formControlName="model">New Model:</ion-input>
                 </ion-item>
+
             </ion-card-content>
         </ion-card>
     </form>
     <div text-center>
-        <ion-button [disabled]="false" (click)="onSave()">Confirm</ion-button>
+        <ion-button expand="block" [disabled]="false" (click)="onSave()">Confirm</ion-button>
     </div>
 
 </ion-content>

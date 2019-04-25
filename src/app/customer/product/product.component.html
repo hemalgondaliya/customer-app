@@ -1,45 +1,44 @@
 <ion-header translucent="" class="header header-translucent hydrated">
     <ion-toolbar class="hydrated">
-        <ion-button slot="start" [disabled]="selectedProducts.length <= 0" (click)="onSave()">Save</ion-button>
-        <ion-button (click)="onCancel()" slot="end">Discard</ion-button>
+        <ion-buttons slot="end" class="hydrated">
+            <ion-button (click)="onCancel()" slot="end">Discard</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="start" class="hydrated">
+            <ion-button slot="start" [disabled]="selectedProducts.length <= 0" (click)="onSave()">
+                Save
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <form [formGroup]="productForm">
-    <ion-card>
-        <ion-card-content>
-            <ion-select (ionChange)="onReset();" formControlName="brand" placeholder="Select Model">
-                <ion-item *ngFor="let brand of brandList">
-                    <ion-select-option value="{{brand}}">{{brand}}</ion-select-option>
-                </ion-item>
-            </ion-select>
-        </ion-card-content>
-    </ion-card>
+        <ion-card>
+            <ion-card-content>
 
-    <ion-card *ngIf="productForm.get('brand').valid">
-        <ion-card-content>
-            <ion-select formControlName="model" placeholder="Select Model">
-                <ion-item *ngFor="let model of productModelList[productForm.get('brand').value]">
-                    <ion-select-option value="{{model.name}}">{{model.name}}</ion-select-option>
-                </ion-item>
-            </ion-select>
-        </ion-card-content>
-    </ion-card>
+                <ion-select placeholder="Select Brand" formControlName="brand">
+                    <ion-select-option *ngFor="let brand of brandList" value="{{brand}}">
+                        {{brand}}
+                    </ion-select-option>
+                </ion-select>
 
-    <ion-card *ngIf="productForm.get('model').valid">
-        <ion-card-header>
-            Enter Detail for selected model
-        </ion-card-header>
-        <ion-card-content>
-                <ion-item>
-                    <ion-input type="number" formControlName="price">Price:</ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input type="text" formControlName="serialNumber">Ser No:</ion-input>
-                </ion-item>
-        </ion-card-content>
-    </ion-card>
+                <ion-select placeholder="Select Model" *ngIf="productForm.get('brand').valid" formControlName="model">
+                    <ion-select-option *ngFor="let model of productModelList[productForm.get('brand').value]" value="{{model.name}}">
+                        {{model.name}}
+                    </ion-select-option>
+                </ion-select>
+
+                <div *ngIf="productForm.get('model').valid">
+                    <ion-item>
+                        <ion-input type="number" formControlName="price">Price:</ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input type="text" formControlName="serialNumber">Ser No:</ion-input>
+                    </ion-item>
+                </div>
+
+            </ion-card-content>
+        </ion-card>
     </form>
 
     <ion-card *ngFor="let product of selectedProducts ">
@@ -52,7 +51,7 @@
     </ion-card>
 
     <div text-center>
-        <ion-button (click)="onAdd()">Add</ion-button>
+        <ion-button expand="block" (click)="onAdd()">Add</ion-button>
     </div>
 
 </ion-content>

@@ -19,12 +19,14 @@ export class ValidationService {
 
     }
 
-    public performValidation(formGroup: FormGroup, alertMessageMapping: string) {
+    public performValidation(formGroup: FormGroup, alertMessageMapping?: string) {
         let validation = true;
         _.forEach(_.keysIn(formGroup.value), (key: string) => {
             if (!formGroup.get(key).valid && validation) {
-                if (alertMessageMapping !== '') {
+                if (alertMessageMapping) {
                     validationAlert.message = 'Please provide valid ' + Const[alertMessageMapping][key];
+                } else {
+                    validationAlert.message = 'Please provide valid ' + key;
                 }
                 this.alertService.presentAlert(validationAlert);
                 validation = false;

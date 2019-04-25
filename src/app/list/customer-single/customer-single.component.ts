@@ -28,8 +28,11 @@ export class CustomerSingleComponent implements OnInit {
             'item': 'Item',
             'phoneNumber': 'Mobile',
             'address': 'Address',
-            'email': 'email',
-            'deliveryPerson': 'Delivery'
+            'email': 'Email',
+            'deliveryPerson': 'Delivery',
+            'debitAmount': 'Debt Amount',
+            'purchase': 'Products'
+
         };
     }
 
@@ -40,6 +43,9 @@ export class CustomerSingleComponent implements OnInit {
     prepareIterationOverObject() {
         const keys = Object.keys(this.customer);
         _.forEach(keys, (key: string) => {
+            if (this.customer[key] === null) {
+                this.customer[key] = '-';
+            }
             this.custPropertyArray.push({key: this.propertyMap[key], value: this.customer[key]});
         });
     }

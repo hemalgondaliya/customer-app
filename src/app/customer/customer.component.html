@@ -9,76 +9,93 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content padding class="form-content">
-    <ion-card>
-        <ion-card-content>
-            <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-                <ion-grid>
+<ion-content class="form-content">
+    <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
                     <ion-row>
-                        <ion-col>
-                            <ion-row>
-                                <ion-item>
-                                    <ion-label position="floating" color="primary">First Name</ion-label>
-                                    <ion-input type="text" formControlName="firstName"></ion-input>
-                                </ion-item>
-                            </ion-row>
-                        </ion-col>
-                        <ion-col>
-                            <ion-row>
-                                <ion-item>
-                                    <ion-label position="floating" color="primary">Last Name</ion-label>
-                                    <ion-input type="text" formControlName="lastName"></ion-input>
-                                </ion-item>
-                            </ion-row>
-                        </ion-col>
+                        <ion-item>
+                            <ion-label position="floating" color="primary">First Name</ion-label>
+                            <ion-input type="text" formControlName="firstName"></ion-input>
+                        </ion-item>
                     </ion-row>
-                </ion-grid>
+                </ion-col>
+                <ion-col>
+                    <ion-row>
+                        <ion-item>
+                            <ion-label position="floating" color="primary">Last Name</ion-label>
+                            <ion-input type="text" formControlName="lastName"></ion-input>
+                        </ion-item>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 
-                <ion-item>
-                    <ion-label position="floating" color="primary">Reference Name</ion-label>
-                    <ion-input type="text" formControlName="referenceName"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating" color="primary">Bill No.</ion-label>
-                    <ion-input inputmode="numeric" type="number" formControlName="billNumber"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating" color="primary">Date</ion-label>
-                    <ion-datetime [min]="minDate" [max]=maxDate formControlName="date" display-format="MMM DD, YYYY"></ion-datetime>
-                </ion-item>
-                <div *ngFor="let model of selectedProduct | keyvalue">
-                    {{model.key}}:{{model.value}}
-                </div>
-                <ion-item>
-                <ion-button (click)="openSelectItemModal()">Select Product({{selectedProducts.length}})</ion-button>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating" color="primary">Phone Number</ion-label>
-                    <ion-input inputmode="numeric" type="number" formControlName="phoneNumber"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating" color="primary">Address</ion-label>
-                    <ion-input type="text" formControlName="address"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating" color="primary">Email</ion-label>
-                    <ion-input inputmode="email" type="email" formControlName="email"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating" color="primary">Delivery Person</ion-label>
-                    <ion-select okText="Okay" cancelText="Cancel" formControlName="deliveryPerson">
-                        <ion-select-option *ngFor="let person of deliveryPeoples" value={{person}}>
-                            {{person}}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <div text-center>
-                    <ion-button color="primary" type="submit">Submit</ion-button>
-                </div>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-row>
+                        <ion-item>
+                            <ion-label position="floating" color="primary">Bill No.
+                            </ion-label>
+                            <ion-input inputmode="numeric" type="number"
+                                    formControlName="billNumber"></ion-input>
+                        </ion-item>
+                    </ion-row>
+                </ion-col>
+                <ion-col>
+                    <ion-row>
+                        <ion-item>
+                            <ion-label position="floating" color="primary">Reference Name
+                            </ion-label>
+                            <ion-input type="text" formControlName="referenceName"></ion-input>
+                        </ion-item>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 
-            </form>
-        </ion-card-content>
-    </ion-card>
+        <ion-item>
+            <ion-label position="floating" color="primary">Date</ion-label>
+            <ion-datetime [min]="minDate" [max]=maxDate formControlName="date"
+                    display-format="MMM DD, YYYY"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+            <ion-label class="product-label" color="primary">Select Product ({{selectedProducts.length}})</ion-label>
+            <ion-label>
+                <ion-button (click)="openSelectItemModal()" slot="end">
+                    <ion-icon slot="icon-only" name="add-circle"> </ion-icon>
+                </ion-button>
+            </ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating" color="primary">Phone Number</ion-label>
+            <ion-input inputmode="numeric" type="number" formControlName="phoneNumber"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Address</ion-label>
+            <ion-input type="text" formControlName="address"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Email</ion-label>
+            <ion-input inputmode="email" type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Delivery Person</ion-label>
+            <ion-select okText="Okay" cancelText="Cancel" formControlName="deliveryPerson">
+                <ion-select-option *ngFor="let person of deliveryPeoples" value={{person}}>
+                    {{person}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+        <div text-center>
+            <ion-button expand="block" type="submit">Submit</ion-button>
+        </div>
+
+    </form>
 
 </ion-content>
 

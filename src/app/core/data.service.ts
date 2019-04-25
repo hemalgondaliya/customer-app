@@ -13,7 +13,7 @@ export class DataService {
 
     deliveryPersonList: Array<String>;
     productModelList: Array<any>;
-    productBrandList: Array<String>;
+    applicationProperties: any;
 
     // requestApi = 'http://144.217.7.73:8080';
 
@@ -23,7 +23,7 @@ export class DataService {
         this.eventService.on('loginSuccess').subscribe((data: any) => {
             this.initDeliveryPeople();
             this.initProductModels();
-            this.initProductBrand();
+            this.initApplicationProperties();
         });
     }
 
@@ -40,9 +40,10 @@ export class DataService {
         });
     }
 
-    initProductBrand() {
-        // TODO: Get all brand from http request
-        this.productBrandList = ['SONY', 'SAMSUNG', 'LG'];
+    initApplicationProperties() {
+        this.postApi('/user/app/properties', '').subscribe((response: Array<any>) => {
+            this.applicationProperties = response;
+        });
     }
 
     public getLogin(user: any): Observable<Object> {
@@ -65,8 +66,8 @@ export class DataService {
         return this.productModelList;
     }
 
-    public getProductBrandList() {
-        return this.productBrandList;
+    public getPaymentMethods() {
+        return this.applicationProperties.paymentMethods;
     }
 
     public addNewModel(model: Model) {
@@ -77,9 +78,18 @@ export class DataService {
         return this.postApi('/user/model/deprecate', model);
     }
 
+    public addPayment(data: any) {
+        return this.postApi('/user/payment/add', data);
+    }
+
+    public searchCustomer(data: any) {
+        return this.postApi('/user/customer/find', data);
+    }
+
+
     refreshToken(token: string) {
-            this.authService.setAuthToken(token);
-            this.eventService.emit('token.refresh', token);
+        this.authService.setAuthToken(token);
+        this.eventService.emit('token.refresh', token);
     }
 
     getApi(url: string, params?: HttpParams, responseType?: any) {

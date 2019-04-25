@@ -10,7 +10,62 @@
 </ion-header>
 
 <ion-content>
+    <ion-card>
+        <ion-card-content>
 
+            <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+                <ion-item>
+                    <ion-input type="number" formControlName="billNumber" [disabled]=enablePayment>Bill No:</ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input type="number" formControlName="year" [disabled]=enablePayment>Year:</ion-input>
+                </ion-item>
+
+                <div *ngIf=!enablePayment text-center>
+                    <ion-button expand="block" (click)="findCustomer()">Find</ion-button>
+                </div>
+
+                <div *ngIf=enablePayment>
+                    <ion-item>
+                        <ion-input readonly>Name: {{customer.firstName}}</ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input readonly>Mo: {{customer.phoneNumber}}</ion-input>
+                    </ion-item>
+
+
+                    <ion-select (ionChange)="onPaymentMethodChange();" placeholder="Select payment method" formControlName="paymentMethod">
+                        <ion-select-option *ngFor="let method of paymentMethod" value="{{method}}">
+                            {{method}}
+                        </ion-select-option>
+                    </ion-select>
+
+                    <ion-item>
+                        <ion-input type="number" formControlName="amount">Amount:</ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-input type="text" formControlName="receiver">Receiver:</ion-input>
+                    </ion-item>
+
+                    <div *ngIf="paymentForm.get('paymentMethod').value === 'CHEQUE'">
+                        <ion-item>
+                            <ion-input type="number" formControlName="chequeNumber">Cheque No:</ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-input type="text" formControlName="bankName">Bank Name:</ion-input>
+                        </ion-item>
+                    </div>
+
+                    <div text-center>
+                        <ion-button expand="block" type="submit">Pay</ion-button>
+                    </div>
+                </div>
+
+            </form>
+
+        </ion-card-content>
+    </ion-card>
 </ion-content>
 
 

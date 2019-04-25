@@ -1,4 +1,11 @@
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
+
+ion-grid,ion-col,ion-row  {
+  padding: 0px;
 }
+
+.product-label {
+  flex: unset;
+}
+//ion-label {
+//  flex: unset;
+//}
