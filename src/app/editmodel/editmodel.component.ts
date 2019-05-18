@@ -14,8 +14,8 @@ const errorAlert: AlertInfo = {
 };
 
 const successAlert: AlertInfo = {
-    header: 'Model is saved to Database!',
-    message: 'Please check the list',
+    header: 'Model is edited!',
+    message: '',
     buttons: ['OK']
 };
 

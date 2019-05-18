@@ -4,6 +4,7 @@ import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {EventService} from './core/event.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -36,6 +37,11 @@ export class AppComponent {
             title: 'Edit model',
             url: '/editmodel',
             icon: 'create'
+        },
+        {
+            title: 'Logout',
+            url: '',
+            icon: 'log-out'
         }
     ];
 
@@ -43,7 +49,8 @@ export class AppComponent {
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
-        private eventService: EventService
+        private eventService: EventService,
+        private router: Router
     ) {
         this.initializeApp();
         this.eventService.on('loginSuccess').subscribe((data: any) => {
@@ -55,6 +62,10 @@ export class AppComponent {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            this.platform.pause.subscribe(() => {
+                this.router.navigateByUrl('');
+                console.log('****UserdashboardPage PAUSED****');
+            });
         });
     }
 }

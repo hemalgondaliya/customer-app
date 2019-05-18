@@ -8,6 +8,11 @@ import {AlertInfo} from '../modal/alert-info.modal';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {AuthService} from '../core/auth.service';
 
+const alertMessage: AlertInfo = {
+    header: 'Login fail!',
+    message: 'Please enter a valid credentials',
+    buttons: ['OK']
+};
 
 @Component({
     selector: 'login-page',
@@ -33,20 +38,7 @@ export class LoginComponent implements OnInit {
     }
 
     onLogin() {
-        const alertMessage: AlertInfo = {
-            header: 'Login fail!',
-            message: 'Please enter a valid credentials',
-            buttons: ['OK']
-        };
-
-        ///// Exclude login authentication for testing purpose //////
-
-        // this.isLoggedIn = true;
-        // this.eventService.emit('loginSuccess', true);
-        // this.router.navigateByUrl('home');
-
-        ////////////////////////////////////////////////////////////
-
+        localStorage.clear();
         if (this.loginForm.value.name !== null && this.loginForm.value.password !== null) {
             this.dataService.getLogin(this.loginForm.value)
                 .subscribe((response: any) => {
