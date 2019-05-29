@@ -5,6 +5,7 @@ import {CustomerComponent} from './customer/customer.component';
 import {ListPage} from './list/list.page';
 import {PaymentComponent} from './payment/payment.component';
 import {EditmodelComponent} from './editmodel/editmodel.component';
+import {DeliveryPersonComponent} from './delivery-person/delivery-person.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'editmodel',
     component: EditmodelComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'deliveryperson',
+    component: DeliveryPersonComponent,
     pathMatch: 'full'
   }
 ];

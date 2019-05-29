@@ -27,6 +27,7 @@ import {TokenInterceptor} from './core/interceptors/token.interceptor';
 import {ProductComponent} from './customer/product/product.component';
 import {PaymentComponent} from './payment/payment.component';
 import {EditmodelComponent} from './editmodel/editmodel.component';
+import {DeliveryPersonComponent} from './delivery-person/delivery-person.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,7 @@ import {EditmodelComponent} from './editmodel/editmodel.component';
         CustomerSingleComponent,
         ProductComponent,
         PaymentComponent,
-        EditmodelComponent],
+        EditmodelComponent, DeliveryPersonComponent],
     entryComponents: [CustomerSingleComponent, ProductComponent],
     imports: [
         BrowserModule,

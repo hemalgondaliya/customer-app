@@ -55,12 +55,12 @@ export class CustomerComponent implements OnInit {
                 private listService: ListService, private alertService: AlertService,
                 private dataService: DataService, private modalController: ModalController,
                 private validationService: ValidationService) {
-        this.deliveryPeoples = this.dataService.getDeliverPeople();
+        this.deliveryPeoples = this.dataService.getDeliveryPersons();
         this.selectedProducts = [];
         this.emailPattern = '[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})';
-        this.namePattern = '[A-Za-z]{2,32}';
+        this.namePattern = '[A-Za-z ]{2,32}';
         this.billPattern = '[1-9][0-9]{0,3}';
-        this.phonePattern = '^[789]\\d{9}$';
+        this.phonePattern = '^[6789]\\d{9}$';
         this.maxDate = new Date().getFullYear() + 1 + '-0' + new Date().getMonth().toString().slice(-2) + '-' + new Date().getDate();
         this.minDate = new Date().getFullYear() + '-0' + new Date().getMonth().toString().slice(-2) + '-' + new Date().getDate();
 

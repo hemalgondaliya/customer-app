@@ -15,6 +15,13 @@ export class Const {
         'selectedProducts': 'Product'
     };
 
+    public static DELIVERY_PERSON_MAP = {
+        'name': 'First Name',
+        'phoneNumber': 'Mobile',
+        'address': 'Address',
+        'tempoNumber': 'Tempo Number'
+    };
+
     public static PRODUCT_PROPERTY_MAP = {
         'price': 'price',
         'brand': 'brand name',

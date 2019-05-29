@@ -58,7 +58,7 @@ export class DataService {
         return this.postApi('/user/customer/list', null);
     }
 
-    public getDeliverPeople(): Array<String> {
+    public getDeliveryPersons(): Array<String> {
         return this.deliveryPersonList;
     }
 
@@ -80,6 +80,10 @@ export class DataService {
 
     public addPayment(data: any) {
         return this.postApi('/user/payment/add', data);
+    }
+
+    public addDeliveryPerson(data: any) {
+        return this.postApi('/user/deliveryPerson/add', data);
     }
 
     public searchCustomer(data: any) {

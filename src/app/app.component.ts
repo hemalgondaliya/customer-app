@@ -39,6 +39,11 @@ export class AppComponent {
             icon: 'create'
         },
         {
+            title: 'Delivery Person',
+            url: '/deliveryperson',
+            icon: 'person-add'
+        },
+        {
             title: 'Logout',
             url: '',
             icon: 'log-out'
@@ -64,6 +69,7 @@ export class AppComponent {
             this.splashScreen.hide();
             this.platform.pause.subscribe(() => {
                 this.router.navigateByUrl('');
+                // TODO: Close all instances of modal
                 console.log('****UserdashboardPage PAUSED****');
             });
         });
