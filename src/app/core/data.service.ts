@@ -6,6 +6,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {AuthService} from './auth.service';
 import {Model} from '../modal/model';
+import {LoadingController} from '@ionic/angular';
 
 
 @Injectable()
@@ -15,15 +16,25 @@ export class DataService {
     productModelList: Array<any>;
     applicationProperties: any;
 
-    // requestApi = 'http://144.217.7.73:8080';
+    loading: any;
 
-    requestApi = 'http://localhost:8080';
+    requestApi = 'http://144.217.7.73:8080';
 
-    constructor(private eventService: EventService, private router: Router, private http: HttpClient, private authService: AuthService) {
+    // requestApi = 'http://localhost:8080';
+
+    constructor(private eventService: EventService, private router: Router, private http: HttpClient, private authService: AuthService,
+                private loadingController: LoadingController) {
+        this.initLoading();
         this.eventService.on('loginSuccess').subscribe((data: any) => {
             this.initDeliveryPeople();
             this.initProductModels();
             this.initApplicationProperties();
+        });
+    }
+
+    async initLoading() {
+        this.loading = await this.loadingController.create({
+            message: 'Please wait...'
         });
     }
 
@@ -113,14 +124,18 @@ export class DataService {
     }
 
     postApi(url: string, data: any, params?: HttpParams) {
+        this.loading.present();
         return this.http.post(this.requestApi + url, data, {
             params: params,
             observe: 'response'
         }).pipe(map((response: any) => {
             this.refreshToken(response.headers.get('x-auth'));
-
+            this.loading.dismiss();
+            this.initLoading();
             return response.body;
         }), catchError((err: any) => {
+            this.loading.dismiss();
+            this.initLoading();
             return throwError(err);
         }));
     }
