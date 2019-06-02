@@ -39,6 +39,11 @@ export class AppComponent {
             icon: 'create'
         },
         {
+            title: 'Edit Customer',
+            url: '/editcustomer',
+            icon: 'create'
+        },
+        {
             title: 'Delivery Person',
             url: '/deliveryperson',
             icon: 'person-add'

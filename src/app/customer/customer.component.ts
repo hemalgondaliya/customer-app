@@ -43,6 +43,7 @@ export class CustomerComponent implements OnInit {
     selectedProducts: Product[];
 
     // ** Validation attributes ** //
+    pattern: Map<string, string>;
     emailPattern: string;
     namePattern: string;
     billPattern: string;
@@ -56,11 +57,12 @@ export class CustomerComponent implements OnInit {
                 private dataService: DataService, private modalController: ModalController,
                 private validationService: ValidationService) {
         this.deliveryPeoples = this.dataService.getDeliveryPersons();
+        this.pattern = dataService.getPattern();
         this.selectedProducts = [];
-        this.emailPattern = '[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})';
-        this.namePattern = '[A-Za-z ]{2,32}';
-        this.billPattern = '[1-9][0-9]{0,3}';
-        this.phonePattern = '^[6789]\\d{9}$';
+        this.emailPattern = this.pattern.get('emailPattern');
+        this.namePattern = this.pattern.get('namePattern');
+        this.billPattern = this.pattern.get('billPattern');
+        this.phonePattern = this.pattern.get('phonePattern');
         this.maxDate = new Date().getFullYear() + 1 + '-0' + new Date().getMonth().toString().slice(-2) + '-' + new Date().getDate();
         this.minDate = new Date().getFullYear() + '-0' + new Date().getMonth().toString().slice(-2) + '-' + new Date().getDate();
 
@@ -75,6 +77,7 @@ export class CustomerComponent implements OnInit {
             'date': new FormControl(null, [Validators.required]),
             'selectedProducts': new FormControl(null, []),
             'phoneNumber': new FormControl(null, [Validators.required, Validators.pattern(this.phonePattern)]),
+            'secondNumber': new FormControl(null, [Validators.pattern(this.phonePattern)]),
             'address': new FormControl(null, [Validators.required]),
             'email': new FormControl(null, [Validators.pattern(this.emailPattern)]),
             'deliveryPerson': new FormControl(null, [Validators.required])

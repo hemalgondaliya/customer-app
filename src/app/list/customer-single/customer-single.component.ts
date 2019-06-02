@@ -27,6 +27,7 @@ export class CustomerSingleComponent implements OnInit {
             'date': 'Date',
             'item': 'Item',
             'phoneNumber': 'Mobile',
+            'secondNumber': 'Mobile-2',
             'address': 'Address',
             'email': 'Email',
             'deliveryPerson': 'Delivery',

@@ -18,6 +18,8 @@ export class PaymentComponent implements OnInit {
     paymentMethod: Array<string>;
     customer = null;
     enablePayment: boolean;
+
+    pattern: Map<string, string>;
     bankNamePattern: string;
     chequeNumberPattern: string;
     amountPattern: string;
@@ -25,10 +27,11 @@ export class PaymentComponent implements OnInit {
     constructor(private dataService: DataService, private validationService: ValidationService,
                 private alertService: AlertService) {
         this.paymentMethod = this.dataService.getPaymentMethods();
+        this.pattern = dataService.getPattern();
         this.enablePayment = false;
-        this.bankNamePattern = '[A-Za-z]{2,32}';
-        this.chequeNumberPattern = '[0-9]{6}';
-        this.amountPattern = '[1-9]\\d{2,6}$';
+        this.bankNamePattern = this.pattern.get('bankNamePattern');
+        this.chequeNumberPattern = this.pattern.get('chequeNumberPattern');
+        this.amountPattern = this.pattern.get('amountPattern');
     }
 
     ngOnInit(): void {

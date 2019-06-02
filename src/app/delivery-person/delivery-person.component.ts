@@ -28,6 +28,8 @@ export class DeliveryPersonComponent implements OnInit {
     deliveryPersonForm: FormGroup;
 
     deliveryPersons: Array<String>;
+
+    pattern: Map<string, string>;
     phonePattern: string;
     namePattern: string;
 
@@ -37,8 +39,9 @@ export class DeliveryPersonComponent implements OnInit {
                 private dataService: DataService,
                 private validationService: ValidationService) {
         this.deliveryPersons = this.dataService.getDeliveryPersons();
-        this.phonePattern = '^[6789]\\d{9}$';
-        this.namePattern = '[A-Za-z ]{2,32}';
+        this.pattern = dataService.getPattern();
+        this.phonePattern = this.pattern.get('phonePattern');
+        this.namePattern = this.pattern.get('namePattern');
     }
 
     ngOnInit(): void {

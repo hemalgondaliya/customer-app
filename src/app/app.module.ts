@@ -26,8 +26,9 @@ import {ValidationService} from './core/validation.service';
 import {TokenInterceptor} from './core/interceptors/token.interceptor';
 import {ProductComponent} from './customer/product/product.component';
 import {PaymentComponent} from './payment/payment.component';
-import {EditmodelComponent} from './editmodel/editmodel.component';
+import {EditModelComponent} from './edit-data/edit-model/edit-model.component';
 import {DeliveryPersonComponent} from './delivery-person/delivery-person.component';
+import {EditCustomerComponent} from './edit-data/edit-customer/edit-customer.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,7 @@ import {DeliveryPersonComponent} from './delivery-person/delivery-person.compone
         CustomerSingleComponent,
         ProductComponent,
         PaymentComponent,
-        EditmodelComponent, DeliveryPersonComponent],
+        EditModelComponent, DeliveryPersonComponent, EditCustomerComponent],
     entryComponents: [CustomerSingleComponent, ProductComponent],
     imports: [
         BrowserModule,

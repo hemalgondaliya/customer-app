@@ -61,6 +61,19 @@ export class DataService {
         return this.postApi('/api/auth/signin', user);
     }
 
+    public getPattern() {
+        // TODO: Get all pattern from client config
+        return new Map(Object.entries({
+            'emailPattern': '[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})',
+            'namePattern': '[A-Za-z ]{2,32}',
+            'billPattern': '[1-9][0-9]{0,3}',
+            'bankNamePattern': '[A-Za-z ]{2,32}',
+            'chequeNumberPattern': '[0-9]{6}',
+            'amountPattern': '[1-9]\\d{2,6}$',
+            'phonePattern': '^[6789]\\d{9}$',
+        }));
+    }
+
     public saveCustomer(cust: any): Observable<Object> {
         return this.postApi('/user/customer/save', cust);
     }
@@ -87,6 +100,10 @@ export class DataService {
 
     public deprecateModel(model: Model) {
         return this.postApi('/user/model/deprecate', model);
+    }
+
+    public deprecateCustomer(data: { billNumber: number, year: number }) {
+        return this.postApi('/user/customer/deprecate', data);
     }
 
     public addPayment(data: any) {

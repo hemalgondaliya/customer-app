@@ -9,6 +9,7 @@ export class Const {
         'date': 'Date',
         'item': 'Item',
         'phoneNumber': 'Mobile',
+        'secondNumber': 'Mobile-2',
         'address': 'Address',
         'email': 'email',
         'deliveryPerson': 'Delivery',

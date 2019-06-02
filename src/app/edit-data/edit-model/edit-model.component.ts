@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {DataService} from '../core/data.service';
-import {ValidationService} from '../core/validation.service';
-import {Model} from '../modal/model';
-import {AlertService} from '../core/alert.service';
-import {AlertInfo} from '../modal/alert-info.modal';
+import {DataService} from '../../core/data.service';
+import {ValidationService} from '../../core/validation.service';
+import {Model} from '../../modal/model';
+import {AlertService} from '../../core/alert.service';
+import {AlertInfo} from '../../modal/alert-info.modal';
 import _ from 'lodash';
 
 const errorAlert: AlertInfo = {
@@ -21,10 +21,10 @@ const successAlert: AlertInfo = {
 
 @Component({
     selector: 'edit-model',
-    templateUrl: 'editmodel.component.html',
-    styleUrls: ['editmodel.component.scss']
+    templateUrl: 'edit-model.component.html',
+    styleUrls: ['edit-model.component.scss']
 })
-export class EditmodelComponent implements OnInit {
+export class EditModelComponent implements OnInit {
 
 
     editModelForm: FormGroup;

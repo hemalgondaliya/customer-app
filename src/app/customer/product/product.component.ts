@@ -34,7 +34,7 @@ export class ProductComponent implements OnInit {
     productModelList: Array<any>;
     selectedBrand: string;
     selectedModel: string;
-
+    pattern: Map<string, string>;
     pricePattern: string;
 
 
@@ -43,9 +43,10 @@ export class ProductComponent implements OnInit {
                 protected alertService: AlertService,
                 protected validationService: ValidationService) {
         this.productModelList = dataService.getProductModelList();
+        this.pattern = dataService.getPattern();
         this.brandList = Object.keys(this.productModelList);
         this.selectedProducts = [];
-        this.pricePattern = '[1-9]\\d{2,6}$';
+        this.pricePattern = this.pattern.get('amountPattern');
         this.selectedBrand = null;
         this.selectedModel = null;
     }
