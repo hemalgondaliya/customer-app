@@ -27,6 +27,7 @@ export class Const {
         'price': 'price',
         'brand': 'brand name',
         'model': 'model',
+        'qty'  : 'Quantity',
         'serialNumber': 'serial number',
     };
 

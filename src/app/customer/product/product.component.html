@@ -16,25 +16,34 @@
         <ion-card>
             <ion-card-content>
 
-                <ion-select placeholder="Select Brand" formControlName="brand">
+                <ion-select (ionChange)="onReset()" placeholder="Select Brand" formControlName="brand">
                     <ion-select-option *ngFor="let brand of brandList" value="{{brand}}">
                         {{brand}}
                     </ion-select-option>
                 </ion-select>
 
                 <ion-select placeholder="Select Model" *ngIf="productForm.get('brand').valid" formControlName="model">
-                    <ion-select-option *ngFor="let model of productModelList[productForm.get('brand').value]" value="{{model.name}}">
+                    <ion-select-option *ngFor="let model of productModelList" value="{{model.name}}">
                         {{model.name}}
                     </ion-select-option>
                 </ion-select>
 
                 <div *ngIf="productForm.get('model').valid">
+                    <ion-select (ionChange)="onQtyChange();" type="number" placeholder="QTY" formControlName="qty">
+                        <ion-select-option *ngFor="let qnty of qty; let i = index" value="{{i + 1}}">
+                            {{i + 1}}
+                        </ion-select-option>
+                    </ion-select>
                     <ion-item>
-                        <ion-input type="number" formControlName="price">Price:</ion-input>
+                        <ion-input type="number" formControlName="price">Price for one pc:</ion-input>
                     </ion-item>
-                    <ion-item>
-                        <ion-input type="text" formControlName="serialNumber">Ser No:</ion-input>
-                    </ion-item>
+
+                    <form *ngIf="productForm.get('qty').valid">
+                        <ion-item *ngFor="let control of serialNumberFormControl">
+                            <ion-input type="text" [formControl]=control>Ser No:</ion-input>
+                        </ion-item>
+                    </form>
+
                 </div>
 
             </ion-card-content>
@@ -42,9 +51,9 @@
     </form>
 
     <ion-card *ngFor="let product of selectedProducts ">
-        <ion-card-content>
+        <ion-card-content id="displayedItem">
             <ion-item lines="none">
-                {{product.model}}:{{product.price}}
+                {{product.model}}:{{product.price}} X {{product.qty}}
                 <ion-icon (click)="onRemove(product)" name="close" slot="end"></ion-icon>
             </ion-item>
         </ion-card-content>

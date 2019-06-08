@@ -2,5 +2,6 @@
 export class Product {
     model: string;
     price: number;
-    serialNumber: string;
+    qty: number;
+    serialNumber: Array<string>;
 }
